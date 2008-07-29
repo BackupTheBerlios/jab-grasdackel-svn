@@ -27,7 +27,7 @@ import re
 import signal
 
 def messageCB(conn,msg):
-	#print msg
+	# print msg
 	if msg.getType() == "groupchat":
 		temp = str(msg.getFrom()).split("/", 1)
 		sender = temp[0]	# Naricht kommt vom Gruppenchat
