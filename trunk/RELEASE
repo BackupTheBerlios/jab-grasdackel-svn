@@ -1,0 +1,28 @@
+Version 0.5
+*************
+- grundlegende Bot-Funktionen
+- weitere Funktion !quote
+- weitere Funktion !joke
+- weitere Funktion !status
+- weitere Funktion !uptime
+- weitere Funktion !kalender
+- weitere Funktion !vdr
+- weitere Funktion !hist
+
+Version 0.6
+***********
+- Bot unter die GPL gestellt
+- README geschrieben
+- startscript erstellt
+- weitere Funktion !ping
+- weitere Funktion !filme
+
+Version 0.6.5
+*************
+- !ping Befehl wieder entfernt
+- !help wird im private chat ausgegeben
+- Bug mit der Endlosschleife behoben
+- Quelltext vereinfacht (mehr globale variablen, filme string besser formatiert)
+- weitere Funktion !slap
+- weitere Funktion !neuerquote
+- weitere Funktion !neuerjoke

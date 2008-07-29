@@ -1,0 +1,50 @@
+=============================================================================
+				    BUGS
+=============================================================================
+
+ gelöst -1- Pidgin Message Handling (Kategorie: mittel)
+	Absturz bei Befehlen im private Chat unter Pidgin
+		********** Anhang *****************************************************************************************************
+		grasdackel@conference.saskia.no-ip.org/Markus: ok
+		grasdackel@conference.saskia.no-ip.org/Markus: <message xmlns="jabber:client" 
+		to="bot@saskia.no-ip.org/684266681208689699524790" from="grasdackel@conference.saskia.no-ip.org/Markus" id="162" 
+		type="chat"><body>blub</body><active xmlns="http://jabber.org/protocol/chatstates" /><x 
+		xmlns="jabber:x:event"><composing /></x></message>
+		grasdackel@conference.saskia.no-ip.org/Markus: das ist von mir
+		grasdackel@conference.saskia.no-ip.org/Markus: <message xmlns="jabber:client" 
+		to="bot@saskia.no-ip.org/684266681208689699524790" from="grasdackel@conference.saskia.no-ip.org/micha" 
+		id="purple194c1374" type="chat"><x xmlns="jabber:x:event"><composing /></x><composing 
+		xmlns="http://jabber.org/protocol/chatstates" /></message>
+		grasdackel@conference.saskia.no-ip.org/Markus: und das michael
+		***********************************************************************************************************************
+
+gelöst -2- Dauerschleife der Befehle bei slap, ping, neuerjoke und neuerquote (Kategorie: Hoch)
+	liegt an dem regulärem ausdruck
+		Lösung: grasdackel soll nicht auf befehle reagieren die er selber geschrieben hat
+			grasdackel soll nicht auf befehle reagieren die schonmal abgehandelt wurden
+
+-3- Fehler beim Starten (Kategorie: Niedrig)
+	Irgend ein XMPP fehler
+		********** Anhang *****************************************************************************************************
+		jonas@jonas:~/Desktop/grasdackelbot$ python grasdackel.py 
+		An error occurred while looking up _xmpp-client._tcp.saskia.no-ip.org
+		Joining grasdackel@conference.saskia.no-ip.org/testdackel
+		***********************************************************************************************************************
+
+-4- GBO Bug
+grasdackel@conference.saskia.no-ip.org/Jonas: !gbo
+Traceback (most recent call last):
+  File "./grasdackel.py", line 318, in <module>
+    main()
+  File "./grasdackel.py", line 316, in main
+    GoOn(cl)
+  File "./grasdackel.py", line 294, in GoOn
+    while StepOn(conn):
+  File "./grasdackel.py", line 288, in StepOn
+    conn.Process(1)
+  File "/usr/lib/python2.5/site-packages/xmpp/dispatcher.py", line 302, in dispatch
+    handler['func'](session,stanza)
+  File "/usr/lib/python2.5/site-packages/xmpp/dispatcher.py", line 214, in streamErrorHandler
+    raise exc((name,text))
+xmpp.protocol.XMLNotWellFormed: (u'xml-not-well-formed', '')
+
