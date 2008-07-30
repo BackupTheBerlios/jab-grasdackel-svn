@@ -23,8 +23,6 @@ import os
 import xmpp
 import thread
 import re
-# Wofuer war signal ?
-import signal
 
 def messageCB(conn,msg):
 	# print msg
@@ -61,21 +59,27 @@ def presenceCB(conn,msg):
 	raumkontakte = RAUMLISTE
 	absender = str(msg.getFrom()).split("/", 1)
 	raum = absender[0]
-
-	print msg
+	#print msg	# Debug Ausgabe
 	
 	if RAUMLISTE.count(raum) == 1:
 		print "Meldung aus einem Gruppenchat!"
 		#print msg
 	else:
-		print "Globale Kontaktliste Meldung"
+		print "- Globale Kontaktliste Meldung -"
+		print msg
+		
 		if str(msg.getFrom()) not in kontaktliste:
-			#print msg
-			kontaktliste[str(msg.getFrom())] = [True, "Online"]
+			kontaktliste[str(msg.getFrom())] = ['Online']
 			#print kontaktliste.keys()
 			#print kontaktliste.values()
 			#print str(msg.getFrom()) + " ist online."
 			#initial.append(True)
+		if msg.getShow():
+			kontaktliste[str(msg.getFrom())] = [str(msg.getShow())]
+		if msg.getStatus():
+			print msg.getStatus()
+		print kontaktliste
+
 def register_command_handler(instance, command, description='', examples=[]):
 	COMMAND_HANDLERS[command] = instance
 	COMMANDS[command] = {'description': description, 'examples': examples}
@@ -126,9 +130,11 @@ def main():
 	cl.sendInitPresence()
 	cl.RegisterHandler('message', messageCB)
 	cl.RegisterHandler('presence',presenceCB)
+	
 	for raum in RAUMLISTE:
 		cl.send(xmpp.Presence(to=raum+"/"+BOTNAME))
 	load_plugins()
+	
 	global bothelp
 	bothelp = "Folgende Funktionen werden angeboten:\n"
 	for name, description in COMMANDS.items():
@@ -144,7 +150,11 @@ topic = ''
 bothelp = ""
 COMMAND_HANDLERS = {}
 COMMANDS = {}
+
 fp = file('config.cfg')
 exec fp in globals()
 fp.close()
+
+for raum in RAUMLISTE:
+	raumlisten = {}
 main()
