@@ -22,7 +22,7 @@ PLUGINNAME = "Quote"
 ##
 #Dokumentation
 ##
-#
+#Wichtig: Die chatquotes.txt benoetigt vor und nach einem quote eine leerzeile
 ##
 
 import random
@@ -30,6 +30,7 @@ import urllib
 from BeautifulSoup import BeautifulSoup
 
 PROF_FILE = 'plugins/data/prof.txt'
+CHATQUOTE_FILE = 'plugins/data/chatquotes.txt'
 
 def handler_bash(recipient, type, parameter):
     zufall = random.randint(1,4)
@@ -175,11 +176,33 @@ def handler_gbo(recipient, type, parameter):
     text = text.replace("\n\r\n","\n")
     tmp = text.strip().replace('\n\r\n', '\r\n')
     tmp = "\n"+tmp
-    sendit(recipient, type, tmp) 
+    sendit(recipient, type, tmp)
+    
+def handler_chatquote(recipient, type, parameter):
+	f = file(CHATQUOTE_FILE,'r')
+	sammlung = f.readlines()
+	f.close()
+	foo = ["1"]
+	while foo != "0":
+		zufall = random.randint(0,len(sammlung)-4)
+		temp = sammlung[zufall]
+		if temp[0] == "\n":
+			text = "\n" +sammlung[zufall+1]
+			value = sammlung[zufall+1]
+			incr = zufall+1
+			while value[0] != "\n":
+				incr = incr+1
+				text = text+sammlung[incr]
+				value = sammlung[incr]
+			foo = "0"
+		else:
+			pass
+	sendit(recipient, type, text)
     
 if AKTIVIERT:
     print PLUGINNAME + " Plugin aktiviert!"
     register_command_handler(handler_bash, '!bash', 'Liefert ein Zitat von Bash seiten', [''])
     register_command_handler(handler_gbo, '!gbo', 'Liefert ein Zitat von German-bash.org', [''])
+    register_command_handler(handler_chatquote, '!chatquote', 'Gibt einen Quote aus dem Chat aus', ['!chatquote'])
 else:
    print PLUGINNAME + " Plugin deaktiviert!"
