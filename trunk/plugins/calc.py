@@ -28,14 +28,14 @@ PLUGINNAME = "calc"
 
 
 def handler_calc(recipient, type, parameter):
-	parameter = "expr "+parameter
-	ergebniss = handler_python_sh(parameter)
-	print ergebniss[0]
-	if ergebniss[0] == "e":
-		message = "Falsche Eingabe"
-	else:
-		message = "Das Ergebniss von "+parameter+" lautet: "+ergebniss
-	sendit(recipient, type, message)
+        parameter = "expr "+parameter
+        ergebniss = handler_python_sh(parameter)
+        print ergebniss
+        if ergebniss == "expr: Syntaxfehler\n":
+                message = "Falsche Eingabe"
+        else:
+                message = "Das Ergebniss von "+parameter+" lautet: "+ergebniss
+        sendit(recipient, type, message)
 
 if AKTIVIERT:
     print PLUGINNAME + " Plugin aktiviert!"
