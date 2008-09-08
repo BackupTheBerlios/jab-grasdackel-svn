@@ -27,7 +27,7 @@ PLUGINNAME = "lsdir"
 
 import os
 
-DATEIEN = 'ls /home/dackel/'
+DATEIEN = 'ls'
 
 def handler_filme(recipient, type, parameter):   
     message = "\n************************************************************************\

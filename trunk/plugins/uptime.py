@@ -27,10 +27,10 @@ PLUGINNAME = "Uptime"
 
 def handler_uptime(recipient, type, parameter):
     message = handler_python_sh('uptime')
-    sendit(recipient, type, message)
+    sendit(recipient, type, message.rstrip())
 
 if AKTIVIERT:
    print PLUGINNAME + " Plugin aktiviert!"
-   register_command_handler(handler_uptime, '!uptime', 'liefert die Uptime', [''])
+   register_command_handler(handler_uptime, '!uptime', 'liefert die uptime', [''])
 else:
    print PLUGINNAME + " Plugin deaktiviert!"
